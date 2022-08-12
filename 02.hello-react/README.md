@@ -1,70 +1,43 @@
-# Getting Started with Create React App
+### Node.js
+Window는 [Node.js 공식 다운로드](https://nodejs.org/en/)를 통해 LTS버전을 다운하면된다.
+> LTS는 Long Term Support의 약자로 장기 지원 버전을 뜻한다.
+"믿고 쓸만하다~"라는 느낌으로 알고 있으면 편하다.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+mac/linux는, [nvm](https://github.com/nvm-sh/nvm)이라는 도구를 통해 Node.js를 설치하면 된다.
+```
+$ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+$ nvm install --lts
+```
+> nvm은 Node Version Manager로 여러버전의 노드를 쓰고 관리 할 때 많이 사용한다.
 
-In the project directory, you can run:
 
-### `npm start`
+### Yarn
+Yarn 은 좀 더 개선된 npm 이라고 생각하시면 좋다. (만약 npm이 좋다면 안써도 무방)
+```
+$ npm install --global yarn
+$ yarn -v
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Code Editor
+[Vs Code 공식 홈페이지](https://code.visualstudio.com/) : 가장 일반적으로 많이 씀
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+[WebStorm](https://www.jetbrains.com/ko-kr/webstorm/) : 떠오르는 신흥강자
 
-### `npm test`
+다른 에디터도 많지만 React개발은 위 2개중 하나 선택하는게 좋다.
+(싫으면 원하는거 써도 무방)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 새 프로젝트 만들어보기
 
-### `npm run build`
+리액트 프로젝트를 만들어보자. 터미널을 열고, 다음 명령어를 입력하면 된다.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```
+$ npx create-react-app hello-react
+```
+그러면 해당 명령을 실행한 경로에 hello-react라는 폴더가 생성 되었을텐데
+다음과 같이 해당경로로 이동하여 실행시켜보자.
+```
+$ cd hello-react
+$ yarn start
+```
+![위와 같은 화면이 뜬다면 성공!](https://velog.velcdn.com/images/artlogy/post/2ea01e87-8ecb-431f-9c99-8b0c3b88c5ed/image.png) 이러한 화면이 뜬다면 성공!
