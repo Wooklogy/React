@@ -1,70 +1,142 @@
-# Getting Started with Create React App
+## 컴포넌트에 값을 전달해보자.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+#### App.jsx
+```jsx
+import React from 'react';
+import Hello from "components/Hello";
 
-## Available Scripts
+function App() {
+  return (
+    <Hello name="react" />
+  );
+}
 
-In the project directory, you can run:
+export default App;
+```
 
-### `npm start`
+#### Hello.jsx
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```jsx
+import React from 'react';
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+const Hello = (props)=> {
+  return <div>안녕하세요 {props.name}</div>
+}
 
-### `npm test`
+export default Hello;
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<div style="font-size:15px">
+	컴포넌트에 전달되는 props는 파라미터를 통해 조회 할 수 있다.
+  props는 object형식으로 전달되며,<br /> 만약 <span style="background-color:lightgray; padding:2px 4px">name</span> 값을 조회하고 싶다면 <span style="background-color:lightgray; padding:2px 4px">props.name</span> 을 조회하면 된다.
+</div>
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 비구조화 할당 (구조 분해)
+#### Hi.jsx
+```jsx
+import React from "react";
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+const Hi = ({ color, text }) => {
+    return <div style={{ color: color }}>{text}</div>;
+};
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+export default Hi;
+```
+#### App.jsx
+```jsx
+import React from "react";
+import Hello from "./components/Hello";
+import Hi from "./components/Hi";
 
-### `npm run eject`
+function App() {
+    return (
+        <>
+            <Hello name="react" />
+            <Hi text="안녕 파랑색" color="blue" />
+        </>
+    );
+}
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+export default App;
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+![](https://velog.velcdn.com/images/artlogy/post/e220b813-fa6d-4d95-afce-26770fa5ee9e/image.png)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## defaultProps (기본값 설정)
+<div style="font-size:15px">컴포넌트에 props 값을 지정하지 않았을떄 사용될 기본 값을 설정할땐 <span style="background-color:lightgray; padding:2px 4px">defaultProps</span>를 사용하면 된다.</div>
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+#### Hello.jsx
+```jsx
+import React from 'react';
 
-## Learn More
+const Hi = ({ color, name }) {
+  return <div style={{ color }}>안녕하세요 {name}</div>
+}
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Hi.defaultProps = {
+  name: '이름없음'
+}
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+export default Hello;
+```
 
-### Code Splitting
+#### App.jsx
+```jsx
+import React from "react";
+import Hello from "./components/Hello";
+import Hi from "./components/Hi";
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+function App() {
+    return (
+        <>
+            <Hello name="react" />
+            <Hi text="안녕 파랑색" color="blue" />
+            <Hi></Hi>
+        </>
+    );
+}
 
-### Analyzing the Bundle Size
+export default App;
+```
+![](https://velog.velcdn.com/images/artlogy/post/3b31710a-33d5-41e2-b77e-856ef8a6d2a5/image.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Props.children
 
-### Making a Progressive Web App
+컴포넌트 태그 사이에 넣은 값을 조회 할떈, props.children을 사용한다.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+#### Wrapper.jsx
+```jsx
+const Wrapper = ({ children }) => {
+    const style = {
+        border: "2px solid black",
+        padding: "16px",
+    };
+    return <div style={style}>{children}</div>;
+};
 
-### Advanced Configuration
+export default Wrapper;
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+#### App.jsx
+```jsx
+import React from "react";
+import Hello from "./components/Hello";
+import Hi from "./components/Hi";
+import Wrapper from "./components/Wrapper";
 
-### Deployment
+function App() {
+    return (
+        <Wrapper>
+            <Hello name="react" />
+            <Hi text="안녕 파랑색" color="blue" />
+            <Hi></Hi>
+        </Wrapper>
+    );
+}
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+export default App;
 
-### `npm run build` fails to minify
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+![](https://velog.velcdn.com/images/artlogy/post/a04e0c9d-2b70-4ee3-9022-bce1bab20572/image.png)
