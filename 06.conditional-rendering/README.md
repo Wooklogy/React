@@ -1,70 +1,68 @@
-# Getting Started with Create React App
+<div style="font-size:15px">특정 조건에 따라 랜더링을 다르게 해야 할 때가 많다. <br>
+그럴땐 리액트에서 다음과 같은 방법으로 조건부 랜더링을 수행한다.</div>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+#### App.jsx
+```jsx
+import React from "react";
+import Hello from "./components/Hello";
+import Hi from "./components/Hi";
+import Wrapper from "./components/Wrapper";
 
-## Available Scripts
+function App() {
+    return (
+        <Wrapper>
+            <Hello name="react" isCondition={true} />
+            <Hi text="안녕 파랑색" color="blue" />
+            <Hi></Hi>
+        </Wrapper>
+    );
+}
 
-In the project directory, you can run:
+export default App;
 
-### `npm start`
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+#### Hello.jsx
+```jsx
+import React from "react";
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+const Hello = (props) => {
+    return (
+        <>
+            <div>안녕하세요 {props.name}</div>;
+            {props.isCondition ? <b>True</b> : null}
+        </>
+    );
+};
 
-### `npm test`
+export default Hello;
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<p style="font-size:15px"><code>isCondition</code> 값이 <code>true</code> 라면 <code>&lt;b&gt;True&lt;/b&gt;</code> 를, 그렇지 않다면 <code>null</code> 을 보여주도록 했다. 참고로 JSX 에서 null, false, undefined 를 렌더링하게 된다면 아무것도 나타나지 않게 된다.</p>
 
-### `npm run build`
+## props 값 설정을 생략하면 = {true}
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<p style="font-size:15px">컴포넌트의 props 값을 설정하게 될 때 만약 props 이름만 작성하고 값 설정을 생략한다면, 이를 <code>true</code> 로 설정한 것으로 간주한다.
+  <br><br>
+예를 들자면,</p>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+#### App.jsx
+```jsx
+import React from "react";
+import Hello from "./components/Hello";
+import Hi from "./components/Hi";
+import Wrapper from "./components/Wrapper";
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+function App() {
+    return (
+        <Wrapper>
+            <Hello name="react" isCondition />
+            <Hi text="안녕 파랑색" color="blue" />
+            <Hi></Hi>
+        </Wrapper>
+    );
+}
 
-### `npm run eject`
+export default App;
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```
