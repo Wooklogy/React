@@ -1,70 +1,60 @@
-# Getting Started with Create React App
+<p style="font-size:15px">
+이제 동적으로 값을 관리해 인터렉티브한 기능을 만들어보자.
+<br>
+  리액트 16.8 이후 Hooks 라는 기능이 도입되어 함수형 컴포넌트를 권장하여 쓰게 되었고 함수형 컴포넌트에선 <code>useState</code>를 사용해 주로 값을 관리한다.
+ <br /><br>
+  간단하게 버튼을 누르면 값이 증가하는 카운터 버튼을 만들어보자.
+</p>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+#### CounterButton.jsx
+```jsx
+import React, { useState } from "react";
 
-## Available Scripts
+const CounterButton = () => {
+    const [counter, setCounter] = useState(0);
+    return (
+        <>
+            <div>{counter}</div>
+            <button
+                onClick={() => {
+                    setCounter(counter + 1);
+                }}
+            >
+                증가
+            </button>
+            <button
+                onClick={() => {
+                    setCounter(counter - 1);
+                }}
+            >
+                감소
+            </button>
+        </>
+    );
+};
 
-In the project directory, you can run:
+export default CounterButton;
 
-### `npm start`
+```
+#### App.jsx
+```jsx
+import React from "react";
+import CounterButton from "./components/CounterButton";
+import Hello from "./components/Hello";
+import Hi from "./components/Hi";
+import Wrapper from "./components/Wrapper";
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+function App() {
+    return (
+        <Wrapper>
+            <Hello name="react" isCondition />
+            <Hi text="안녕 파랑색" color="blue" />
+            <Hi></Hi>
+            <CounterButton></CounterButton>
+        </Wrapper>
+    );
+}
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+export default App;
+```
+![](https://velog.velcdn.com/images/artlogy/post/d248d6a0-27fd-44a9-a64f-8fa295e3fab1/image.gif)
