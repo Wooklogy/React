@@ -7,7 +7,7 @@ const InputSample = () => {
         text: "",
     });
 
-    const nameInput = useRef();
+    const nameInput = useRef(0); //ref 선언()안에는 useState처럼 기본값을 할당하면 된다.
 
     const { name, nickname, text } = inputs; // 비구조화 할당을 통해 값 추출
     const onChange = (e) => {
@@ -23,7 +23,9 @@ const InputSample = () => {
             name: "",
             nickname: "",
         });
-        nameInput.current.focus();
+        nameInput.current.focus(); //.current는 ref가 가르키는 dom 요소를 뜻한다.
+        nameInput.current += 1; //변수를 CRUD할때도 이렇게 접근하면된다.
+        console.log(nameInput.current);
     };
     return (
         <div style={{ display: "flex", flexDirection: "column" }}>
