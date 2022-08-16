@@ -1,70 +1,118 @@
-# Getting Started with Create React App
+<p style="font-size:15px">
+  이번에는 사용자의 입력을 받는 <code>input</code> 태그의 상태를 관리해보자.
+</p>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+#### InputSample.jsx
 
-## Available Scripts
+```jsx
+import React, { useState } from "react";
 
-In the project directory, you can run:
+const InputSample = () => {
+    const [text, setText] = useState("");
 
-### `npm start`
+    return (
+        <div>
+            <input
+                onChange={(e) => {
+                    setText(e.target.value);
+                }}
+            ></input>
+            <button
+                onClick={() => {
+                    setText("");
+                }}
+            >
+                초기화
+            </button>
+            <div>
+                <b>값 : {text}</b>
+            </div>
+        </div>
+    );
+};
+export default InputSample;
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+#### App.jsx
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```jsx
+import React from "react";
+import CounterButton from "./components/CounterButton";
+import Hello from "./components/Hello";
+import Hi from "./components/Hi";
+import Wrapper from "./components/Wrapper";
+import InputSample from "./components/InputSample";
 
-### `npm test`
+function App() {
+    return (
+        <Wrapper>
+            <Hello name="react" isCondition />
+            <Hi text="안녕 파랑색" color="blue" />
+            <Hi></Hi>
+            <CounterButton></CounterButton>
+            <InputSample></InputSample>
+        </Wrapper>
+    );
+}
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+export default App;
+```
 
-### `npm run build`
+![](https://velog.velcdn.com/images/artlogy/post/07216ec9-21dc-43cf-bd7d-fe3fb8781cdf/image.gif)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 여러개의 input 상태 관리
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<p style="font-size:15px">
+	위 예시처럼 하나의 input만 관리한다면 설명 할 것도 없이 간단하겠지만,
+  <br>대부분 페이지는 여러개의 input을 사용하기 때문에<br> 여러개의 input들의 상태를 효율 적으로 관리하는 법을 숙지 할 필요가있다.
+</p>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### InputSample.jsx
 
-### `npm run eject`
+```jsx
+import React, { useState } from "react";
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+const InputSample = () => {
+    const [inputs, setInputs] = useState({
+        name: "",
+        nickname: "",
+        text: "",
+    });
+    const { name, nickname, text } = inputs; // 비구조화 할당을 통해 값 추출
+    const onChange = (e) => {
+        const { value, name } = e.target;
+        setInputs({
+            ...inputs, //기존 input 객체를 복사
+            [name]: value, //name 키를 가진 값을 value로 설정
+        });
+    };
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+    const onReset = () => {
+        setInputs({
+            name: "",
+            nickname: "",
+        });
+    };
+    return (
+        <div style={{ display: "flex", flexDirection: "column" }}>
+            <input name="name" placeholder="이름" onChange={onChange}></input>
+            <input
+                name="nickname"
+                placeholder="닉네임"
+                onChange={onChange}
+            ></input>
+            <input name="text" onChange={onChange}></input>
+            <button onClick={onReset}>초기화</button>
+            <div>
+                <b>값 : {text}</b>
+                <div>
+                    {name} : {nickname}
+                </div>
+            </div>
+        </div>
+    );
+};
+export default InputSample;
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+![](https://velog.velcdn.com/images/artlogy/post/93ef9ea2-7b32-49cc-8cdb-84ba41729a00/image.png)
